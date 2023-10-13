@@ -17,7 +17,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-// Function to generate the badge for the selected license
 function generateLicenseBadge(license) {
   let badge = "";
   switch (license) {
@@ -56,7 +55,7 @@ const generateREADME = ({
 
   return `# ${title}
 
-${licenseBadge}  <!-- License badge here -->
+${licenseBadge}  
 
 ## Description
 ${description}
@@ -78,7 +77,7 @@ ${usage}
 ## License
 Refer to the [License file](LICENSE).
 
-## Contributing
+## Credits
 ${contributing}
 
 ## Tests
@@ -110,7 +109,7 @@ inquirer
     {
       type: "input",
       name: "usage",
-      message: "Provide usage information:",
+      message: "Provide examples of usage for the project:",
     },
     {
       type: "list",
@@ -121,7 +120,7 @@ inquirer
     {
       type: "input",
       name: "contributing",
-      message: "Provide contribution guidelines:",
+      message: "Provide any credits for the project",
     },
     {
       type: "input",
@@ -145,13 +144,19 @@ inquirer
     },
   ])
   .then((answers) => {
-    const readmeContent = generateREADME(answers);
-    const outputDirectory = "./Output";  // Replace with your desired directory path
+    const outputDirectory = "./Output"; 
 
-    // Combine the output directory and the desired filename
+   
     const outputFile = `${outputDirectory}/README.md`;
 
-    fs.writeFile("README.md", readmeContent, (err) =>
+
+    if (!fs.existsSync(outputDirectory)) {
+      fs.mkdirSync(outputDirectory);
+    }
+
+    const readmeContent = generateREADME(answers);
+
+    fs.writeFile(outputFile, readmeContent, (err) =>
       err ? console.log(err) : console.log("Successfully created README.md!")
     );
   });
