@@ -25,11 +25,11 @@ function generateLicenseBadge(license) {
       badge =
         "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)";
       break;
-    case "Apache License 2.0":
+    case "Apache":
       badge =
         "[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)";
       break;
-    case "GNU General Public License 3.0":
+    case "GNU":
       badge =
         "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)";
       break;
@@ -116,7 +116,7 @@ inquirer
       type: "list",
       name: "license",
       message: "Choose a license for your project:",
-      choices: ["MIT", "Apache License 2.0", "GNU General Public License 3.0"],
+      choices: ["MIT", "Apache", "GNU"],
     },
     {
       type: "input",
@@ -146,6 +146,10 @@ inquirer
   ])
   .then((answers) => {
     const readmeContent = generateREADME(answers);
+    const outputDirectory = "./Output";  // Replace with your desired directory path
+
+    // Combine the output directory and the desired filename
+    const outputFile = `${outputDirectory}/README.md`;
 
     fs.writeFile("README.md", readmeContent, (err) =>
       err ? console.log(err) : console.log("Successfully created README.md!")
