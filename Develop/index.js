@@ -55,42 +55,41 @@ const generateREADME = ({
   const licenseBadge = generateLicenseBadge(license);
 
   return `# ${title}
-  
-  ${licenseBadge}  <!-- License badge here -->
-  
-  ## Description
-  ${description}
-  
-  ## Table of Contents
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [License](#license)
-  - [Contributing](#contributing)
-  - [Tests](#tests)
-  - [Author](#author)
-  
-  ## Installation
-  ${installation}
-  
-  ## Usage
-  ${usage}
-  
-  ## License
-  Refer to the [License file](LICENSE).
-  
-  ## Contributing
-  ${contributing}
-  
-  ## Tests
-  ${tests}
-  
-  ## Author
-  - **${author}**
-    - GitHub: [${github}](https://github.com/${github})
-    - LinkedIn: [LinkedIn Profile](${linkedin})
-  `;
-};
 
+${licenseBadge}  <!-- License badge here -->
+
+## Description
+${description}
+
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Author](#author)
+
+## Installation
+${installation}
+
+## Usage
+${usage}
+
+## License
+Refer to the [License file](LICENSE).
+
+## Contributing
+${contributing}
+
+## Tests
+${tests}
+
+## Author
+- **${author}**
+  - GitHub: [${github}](https://github.com/${github})
+  - LinkedIn: [LinkedIn Profile](${linkedin})
+`;
+};
 inquirer
   .prompt([
     {
@@ -114,9 +113,10 @@ inquirer
       message: "Provide usage information:",
     },
     {
-      type: "input",
+      type: "list",
       name: "license",
-      message: "Enter the license for your project:",
+      message: "Choose a license for your project:",
+      choices: ["MIT", "Apache License 2.0", "GNU General Public License 3.0"],
     },
     {
       type: "input",
