@@ -14,102 +14,140 @@
 // WHEN I click on the links in the Table of Contents
 // THEN I am taken to the corresponding section of the README
 
-const inquirer = require('inquirer');
-const fs = require('fs');
+const inquirer = require("inquirer");
+const fs = require("fs");
+
+// Function to generate the badge for the selected license
+function generateLicenseBadge(license) {
+  let badge = "";
+  switch (license) {
+    case "MIT":
+      badge =
+        "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)";
+      break;
+    case "Apache License 2.0":
+      badge =
+        "[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)";
+      break;
+    case "GNU General Public License 3.0":
+      badge =
+        "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)";
+      break;
+    default:
+      badge = "";
+  }
+  return badge;
+}
 
 // Function to generate README content
-const generateREADME = ({ title, description, installation, usage, license, contributing, tests, author, github, linkedin }) =>
-  `# ${title}
+const generateREADME = ({
+  title,
+  description,
+  installation,
+  usage,
+  license,
+  contributing,
+  tests,
+  author,
+  github,
+  linkedin,
+}) => {
+  const licenseBadge = generateLicenseBadge(license);
 
-## Description
-${description}
-
-## Table of Contents
-- [Installation](#installation)
-- [Usage](#usage)
-- [License](#license)
-- [Contributing](#contributing)
-- [Tests](#tests)
-- [Author](#author)
-
-## Installation
-${installation}
-
-## Usage
-${usage}
-
-## License
-This project is licensed under ${license} license.
-
-## Contributing
-${contributing}
-
-## Tests
-${tests}
-
-## Author
-- **${author}**
-  - GitHub: [${github}](https://github.com/${github})
-  - LinkedIn: [LinkedIn Profile](${linkedin})
-`;
+  return `# ${title}
+  
+  ${licenseBadge}  <!-- License badge here -->
+  
+  ## Description
+  ${description}
+  
+  ## Table of Contents
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [License](#license)
+  - [Contributing](#contributing)
+  - [Tests](#tests)
+  - [Author](#author)
+  
+  ## Installation
+  ${installation}
+  
+  ## Usage
+  ${usage}
+  
+  ## License
+  Refer to the [License file](LICENSE).
+  
+  ## Contributing
+  ${contributing}
+  
+  ## Tests
+  ${tests}
+  
+  ## Author
+  - **${author}**
+    - GitHub: [${github}](https://github.com/${github})
+    - LinkedIn: [LinkedIn Profile](${linkedin})
+  `;
+};
 
 inquirer
   .prompt([
     {
-      type: 'input',
-      name: 'title',
-      message: 'Enter the title of your project:',
+      type: "input",
+      name: "title",
+      message: "Enter the title of your project:",
     },
     {
-      type: 'input',
-      name: 'description',
-      message: 'Provide a brief description of your project:',
+      type: "input",
+      name: "description",
+      message: "Provide a brief description of your project:",
     },
     {
-      type: 'input',
-      name: 'installation',
-      message: 'Provide installation instructions:',
+      type: "input",
+      name: "installation",
+      message: "Provide installation instructions:",
     },
     {
-      type: 'input',
-      name: 'usage',
-      message: 'Provide usage information:',
+      type: "input",
+      name: "usage",
+      message: "Provide usage information:",
     },
     {
-      type: 'input',
-      name: 'license',
-      message: 'Enter the license for your project:',
+      type: "input",
+      name: "license",
+      message: "Enter the license for your project:",
     },
     {
-      type: 'input',
-      name: 'contributing',
-      message: 'Provide contribution guidelines:',
+      type: "input",
+      name: "contributing",
+      message: "Provide contribution guidelines:",
     },
     {
-      type: 'input',
-      name: 'tests',
-      message: 'Provide test instructions:',
+      type: "input",
+      name: "tests",
+      message: "Provide test instructions:",
     },
     {
-      type: 'input',
-      name: 'author',
+      type: "input",
+      name: "author",
       message: "Enter the project author's name:",
     },
     {
-      type: 'input',
-      name: 'github',
+      type: "input",
+      name: "github",
       message: "Enter the project author's GitHub username:",
     },
     {
-      type: 'input',
-      name: 'linkedin',
+      type: "input",
+      name: "linkedin",
       message: "Enter the project author's LinkedIn URL:",
     },
   ])
   .then((answers) => {
     const readmeContent = generateREADME(answers);
 
-    fs.writeFile('README.md', readmeContent, (err) =>
-      err ? console.log(err) : console.log('Successfully created README.md!')
+    fs.writeFile("README.md", readmeContent, (err) =>
+      err ? console.log(err) : console.log("Successfully created README.md!")
     );
   });
