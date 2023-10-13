@@ -19,7 +19,7 @@ To use this program simply run "node index.js" while in the integrated terminal 
 ## Usage
 This project could be used to create any README, as long as it follows the general guidelines of what a README is.
 Link to example video:
-
+https://youtu.be/CTjJhEqAdQA
 
 ## License
 Refer to the [License file](LICENSE).
